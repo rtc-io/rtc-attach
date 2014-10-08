@@ -26,5 +26,8 @@
   "homepage": "https://github.com/rtc-io/rtc-attach",
   "dependencies": {
     "rtc-core": "^3.1.0"
+  },
+  "devDependencies": {
+    "rtc-capture": "^1.0.1"
   }
 }
