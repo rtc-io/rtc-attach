@@ -1,0 +1,12 @@
+{
+  "badges": {
+    "nodeico": true,
+    "travis": true,
+    "stability": true,
+    "gitter": "rtc-io"
+  },
+
+  "license": {
+    "holder": "National ICT Australia Limited (NICTA)"
+  }
+}
