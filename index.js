@@ -6,7 +6,8 @@ var extend = require('cog/extend');
 
   Roughly equivalent to the
   [`attachMediaStream`](https://www.npmjs.org/package/attachmediastream)
-  package but with support for rtc.io plugins.
+  package but with support for rtc.io plugins.  Also uses an error first
+  async API to allow plugins time to initialize.
 
   ## Example Usage
 
@@ -48,24 +49,21 @@ module.exports = function(stream, opts, callback) {
     opts = {};
   }
 
-  function attach() {
-    var autoplay = (opts || {}).autoplay;
-    var prepareEl = (pinst && pinst.prepareElement) || prepareElement;
+  function attach(s, o) {
+    var autoplay = (o || {}).autoplay;
     var elType = 'audio';
-    var el;
+    var el = (o || {}).el;
 
     // check the stream is valid
-    isValid = stream && typeof stream.getVideoTracks == 'function';
+    isValid = s && typeof s.getVideoTracks == 'function';
 
     // determine the element type
-    if (isValid && stream.getVideoTracks().length > 0) {
+    if (isValid && s.getVideoTracks().length > 0) {
       elType = 'video';
     }
 
     // prepare the element
-    el = prepareEl(extend({ type: elType }, opts), (opts || {}).el);
-
-    // bind the stream
+    el = el || document.createElement(elType);
 
     // attach the stream
     if (URL && URL.createObjectURL) {
@@ -85,10 +83,6 @@ module.exports = function(stream, opts, callback) {
     return el;
   }
 
-  function prepareElement(options, el) {
-    return el || document.createElement(options.type);
-  }
-
   // see if we are using a plugin
   pinst = plugin((opts || {}).plugins);
   if (pinst) {
@@ -97,9 +91,13 @@ module.exports = function(stream, opts, callback) {
         return callback(err);
       }
 
-      callback(null, attach());
+      if (typeof pinst.attach != 'function') {
+        return callback(new Error('plugin must support the attach function'));
+      }
+
+      callback(null, pinst.attach(stream, opts));
     });
   }
 
-  callback(null, attach());
+  callback(null, attach(stream, opts));
 };
