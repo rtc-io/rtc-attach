@@ -23,7 +23,13 @@ capture({ video: true, audio: true }, function(err, stream) {
     return console.error('could not capture stream: ', stream);
   }
 
-  document.body.appendChild(attach(stream));
+  attach(stream, function(err, el) {
+    if (err) {
+      return console.error('could not attach stream to element: ', err);
+    }
+
+    document.body.appendChild(el);
+  });
 });
 
 ```
@@ -45,17 +51,25 @@ capture({ audio: true, video: true }, opts, function(err, stream) {
     return console.error('could not capture stream: ', err);
   }
 
-  document.body.appendChild(attach(stream, opts));
+  attach(stream, opts, function(err, el) {
+    if (err) {
+      return console.error('could not attach stream: ', err);
+    }
+
+    document.body.appendChild(el);
+  });
 });
 
 ```
 
 ## Reference
 
-### `attach(stream, opts?)`
+### `attach(stream, opts?, callback)`
 
-Attach `stream` to the specified target `el` (a new element is created if
-null). The following options can be supplied to tweak behaviour:
+Attach `stream` to a HTML element that will render the content. The provided
+`callback` follows the format of `fn(err, element)`.  While the async nature
+of this package may seem odd, because a plugin may need time to initialize
+this caters for this case in addition to standard usage in the browser.
 
 - `autoplay` (default: `true`) - by default after the stream has been
   attached to the element it will be played.  This is done by calling
