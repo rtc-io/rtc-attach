@@ -34,12 +34,16 @@ var extend = require('cog/extend');
   - `el` (default: `null`) - if you with to supply an element to be used
     instead of creating a new element to receive the stream specify it here.
 
+  - `muted` (default: `false`) - whether the created element should be muted
+    or not.  For local streams this should almost always, be true so consider
+    using the `attach.local` helper function for simple cases.
+
   - `plugins` (default: `[]`) - specify one or more plugins that can be used
     to render the media stream appropriate to the current platform in the
     event that WebRTC and/or media capture is supported via a browser plugin.
 
 **/
-module.exports = function(stream, opts, callback) {
+var attach = module.exports = function(stream, opts, callback) {
   var URL = typeof window != 'undefined' && window.URL;
   var el;
   var pinst;
@@ -49,7 +53,7 @@ module.exports = function(stream, opts, callback) {
     opts = {};
   }
 
-  function attach(s, o) {
+  function attachToElement(s, o) {
     var autoplay = (o || {}).autoplay;
     var elType = 'audio';
     var el = (o || {}).el;
@@ -76,6 +80,11 @@ module.exports = function(stream, opts, callback) {
       el.mozSrcObject = stream;
     }
 
+    if ((o || {}).muted) {
+      el.muted = true;
+      el.setAttribute('muted', '');
+    }
+
     if (autoplay === undefined || autoplay) {
       el.play();
     }
@@ -99,5 +108,5 @@ module.exports = function(stream, opts, callback) {
     });
   }
 
-  callback(null, attach(stream, opts));
+  callback(null, attachToElement(stream, opts));
 };
