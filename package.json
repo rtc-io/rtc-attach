@@ -29,6 +29,9 @@
     "rtc-core": "^3.1.0"
   },
   "devDependencies": {
-    "rtc-capture": "^1.0.1"
+    "kgo": "^1.1.3",
+    "rtc-capture": "^1.0.1",
+    "rtc-plugin-nicta-ios": "^1.1.2",
+    "rtc-plugin-temasys": "0.0.2"
   }
 }
