@@ -1,4 +1,5 @@
 var plugin = require('rtc-core/plugin');
+var extend = require('cog/extend');
 
 /**
   # rtc-attach
@@ -17,10 +18,12 @@ var plugin = require('rtc-core/plugin');
 
   ## Reference
 
-  ### `attach(stream, opts?)`
+  ### `attach(stream, opts?, callback)`
 
-  Attach `stream` to the specified target `el` (a new element is created if
-  null). The following options can be supplied to tweak behaviour:
+  Attach `stream` to a HTML element that will render the content. The provided
+  `callback` follows the format of `fn(err, element)`.  While the async nature
+  of this package may seem odd, because a plugin may need time to initialize
+  this caters for this case in addition to standard usage in the browser.
 
   - `autoplay` (default: `true`) - by default after the stream has been
     attached to the element it will be played.  This is done by calling
@@ -35,37 +38,68 @@ var plugin = require('rtc-core/plugin');
     event that WebRTC and/or media capture is supported via a browser plugin.
 
 **/
-module.exports = function(stream, opts) {
-  var elType = 'audio';
+module.exports = function(stream, opts, callback) {
   var URL = typeof window != 'undefined' && window.URL;
-  var autoplay = (opts || {}).autoplay;
   var el;
+  var pinst;
 
-  // check the stream is valid
-  isValid = stream && typeof stream.getVideoTracks == 'function';
-
-  // determine the element type
-  if (isValid && stream.getVideoTracks().length > 0) {
-    elType = 'video';
+  if (typeof opts == 'function') {
+    callback = opts;
+    opts = {};
   }
 
-  // create an element if one has not been provided
-  el = (opts || {}).el || document.createElement(elType);
+  function attach() {
+    var autoplay = (opts || {}).autoplay;
+    var prepareEl = (pinst && pinst.prepareElement) || prepareElement;
+    var elType = 'audio';
+    var el;
 
-  // attach the stream
-  if (URL && URL.createObjectURL) {
-    el.src = URL.createObjectURL(stream);
-  }
-  else if (el.srcObject) {
-    el.srcObject = stream;
-  }
-  else if (el.mozSrcObject) {
-    el.mozSrcObject = stream;
+    // check the stream is valid
+    isValid = stream && typeof stream.getVideoTracks == 'function';
+
+    // determine the element type
+    if (isValid && stream.getVideoTracks().length > 0) {
+      elType = 'video';
+    }
+
+    // prepare the element
+    el = prepareEl(extend({ type: elType }, opts), (opts || {}).el);
+
+    // bind the stream
+
+    // attach the stream
+    if (URL && URL.createObjectURL) {
+      el.src = URL.createObjectURL(stream);
+    }
+    else if (el.srcObject) {
+      el.srcObject = stream;
+    }
+    else if (el.mozSrcObject) {
+      el.mozSrcObject = stream;
+    }
+
+    if (autoplay === undefined || autoplay) {
+      el.play();
+    }
+
+    return el;
   }
 
-  if (autoplay === undefined || autoplay) {
-    el.play();
+  function prepareElement(options, el) {
+    return el || document.createElement(options.type);
   }
 
-  return el;
+  // see if we are using a plugin
+  pinst = plugin((opts || {}).plugins);
+  if (pinst) {
+    return pinst.init(opts, function(err) {
+      if (err) {
+        return callback(err);
+      }
+
+      callback(null, attach());
+    });
+  }
+
+  callback(null, attach());
 };
