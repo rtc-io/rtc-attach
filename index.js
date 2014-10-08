@@ -33,4 +33,35 @@ var plugin = require('rtc-core/plugin');
 
 **/
 module.exports = function(stream, el, opts) {
+  var elType = 'audio';
+  var URL = typeof window != 'undefined' && window.URL;
+  var autoplay = (opts || {}).autoplay;
+
+  // check the stream is valid
+  isValid = stream && typeof stream.getVideoTracks == 'function';
+
+  // determine the element type
+  if (isValid && stream.getVideoTracks().length > 0) {
+    elType = 'video';
+  }
+
+  // create an element if one has not been provided
+  el = el || document.createElement(elType);
+
+  // attach the stream
+  if (URL && URL.createObjectURL) {
+    el.src = URL.createObjectURL(stream);
+  }
+  else if (el.srcObject) {
+    el.srcObject = stream;
+  }
+  else if (el.mozSrcObject) {
+    el.mozSrcObject = stream;
+  }
+
+  if (autoplay === undefined || autoplay) {
+    el.play();
+  }
+
+  return el;
 };
