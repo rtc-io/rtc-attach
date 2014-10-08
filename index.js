@@ -110,3 +110,15 @@ var attach = module.exports = function(stream, opts, callback) {
 
   callback(null, attachToElement(stream, opts));
 };
+
+/**
+  ### `attach.local(stream, callback)`
+
+  Attach a local stream with options appropriate for local streams:
+
+  - `muted`: `true`
+
+**/
+attach.local = function(stream, callback) {
+  attach(stream, { muted: true }, callback);
+};
