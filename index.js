@@ -11,7 +11,7 @@ var plugin = require('rtc-core/plugin');
 
   <<< examples/simple.js
 
-  ## Example with using Plugins
+  ## Example using Plugins
 
   <<< examples/plugins.js
 

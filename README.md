@@ -28,7 +28,7 @@ capture({ video: true, audio: true }, function(err, stream) {
 
 ```
 
-## Example with using Plugins
+## Example using Plugins
 
 ```js
 var capture = require('rtc-capture');
