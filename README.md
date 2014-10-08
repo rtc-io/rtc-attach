@@ -30,11 +30,29 @@ capture({ video: true, audio: true }, function(err, stream) {
 
 ## Example with using Plugins
 
-ERROR: could not find: 
+```js
+var capture = require('rtc-capture');
+var attach = require('rtc-attach');
+var opts = {
+  plugins: [
+    require('rtc-plugin-nicta-ios'),
+    require('rtc-plugin-temasys')
+  ]
+};
+
+capture({ audio: true, video: true }, opts, function(err, stream) {
+  if (err) {
+    return console.error('could not capture stream: ', err);
+  }
+
+  document.body.appendChild(attach(stream, opts));
+});
+
+```
 
 ## Reference
 
-### `attach(stream, el?, opts?)`
+### `attach(stream, opts?)`
 
 Attach `stream` to the specified target `el` (a new element is created if
 null). The following options can be supplied to tweak behaviour:
@@ -43,6 +61,9 @@ null). The following options can be supplied to tweak behaviour:
   attached to the element it will be played.  This is done by calling
   the `play()` function on the element rather than relying on `autoplay`
   attribute functionality.
+
+- `el` (default: `null`) - if you with to supply an element to be used
+  instead of creating a new element to receive the stream specify it here.
 
 - `plugins` (default: `[]`) - specify one or more plugins that can be used
   to render the media stream appropriate to the current platform in the
