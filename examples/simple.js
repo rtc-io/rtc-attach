@@ -6,5 +6,11 @@ capture({ video: true, audio: true }, function(err, stream) {
     return console.error('could not capture stream: ', stream);
   }
 
-  document.body.appendChild(attach(stream));
+  attach(stream, function(err, el) {
+    if (err) {
+      return console.error('could not attach stream to element: ', err);
+    }
+
+    document.body.appendChild(el);
+  });
 });
