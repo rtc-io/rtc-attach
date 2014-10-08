@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/rtc-io/rtc-attach/issues"
   },
-  "homepage": "https://github.com/rtc-io/rtc-attach"
+  "homepage": "https://github.com/rtc-io/rtc-attach",
+  "dependencies": {
+    "rtc-core": "^3.1.0"
+  }
 }
