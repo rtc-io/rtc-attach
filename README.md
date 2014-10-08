@@ -7,7 +7,7 @@ package but with support for rtc.io plugins.
 
 [![NPM](https://nodei.co/npm/rtc-attach.png)](https://nodei.co/npm/rtc-attach/)
 
-[![Build Status](https://img.shields.io/travis/rtc-io/rtc-attach.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-attach) [![experimental](https://img.shields.io/badge/stability-experimental-red.svg)](https://github.com/dominictarr/stability#experimental) 
+[![Build Status](https://img.shields.io/travis/rtc-io/rtc-attach.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-attach) [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/dominictarr/stability#unstable) 
 [![Gitter chat](https://badges.gitter.im/rtc-io.png)](https://gitter.im/rtc-io)
 
 

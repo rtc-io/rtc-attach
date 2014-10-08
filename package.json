@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "gendocs": "gendocs > README.md"
   },
+  "stability": "unstable",
   "repository": {
     "type": "git",
     "url": "https://github.com/rtc-io/rtc-attach.git"
