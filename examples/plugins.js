@@ -12,7 +12,7 @@ capture({ audio: true, video: true }, opts, function(err, stream) {
     return console.error('could not capture stream: ', err);
   }
 
-  attach(stream, opts, function(err, el) {
+  attach.local(stream, opts, function(err, el) {
     if (err) {
       return console.error('could not attach stream: ', err);
     }
