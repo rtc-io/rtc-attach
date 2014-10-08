@@ -14,7 +14,19 @@ package but with support for rtc.io plugins.
 
 ## Example Usage
 
-ERROR: could not find: 
+```js
+var capture = require('rtc-capture');
+var attach = require('rtc-attach');
+
+capture({ video: true, audio: true }, function(err, stream) {
+  if (err) {
+    return console.error('could not capture stream: ', stream);
+  }
+
+  document.body.appendChild(attach(stream));
+});
+
+```
 
 ## Example with using Plugins
 
