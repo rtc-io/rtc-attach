@@ -24,7 +24,7 @@ capture({ video: true, audio: true }, function(err, stream) {
     return console.error('could not capture stream: ', stream);
   }
 
-  attach(stream, function(err, el) {
+  attach.local(stream, function(err, el) {
     if (err) {
       return console.error('could not attach stream to element: ', err);
     }
@@ -52,7 +52,7 @@ capture({ audio: true, video: true }, opts, function(err, stream) {
     return console.error('could not capture stream: ', err);
   }
 
-  attach(stream, opts, function(err, el) {
+  attach.local(stream, opts, function(err, el) {
     if (err) {
       return console.error('could not attach stream: ', err);
     }
@@ -80,9 +80,19 @@ this caters for this case in addition to standard usage in the browser.
 - `el` (default: `null`) - if you with to supply an element to be used
   instead of creating a new element to receive the stream specify it here.
 
+- `muted` (default: `false`) - whether the created element should be muted
+  or not.  For local streams this should almost always, be true so consider
+  using the `attach.local` helper function for simple cases.
+
 - `plugins` (default: `[]`) - specify one or more plugins that can be used
   to render the media stream appropriate to the current platform in the
   event that WebRTC and/or media capture is supported via a browser plugin.
+
+### `attach.local(stream, callback)`
+
+Attach a local stream with options appropriate for local streams:
+
+- `muted`: `true`
 
 ## License(s)
 
