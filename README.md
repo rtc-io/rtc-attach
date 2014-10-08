@@ -2,7 +2,8 @@
 
 Roughly equivalent to the
 [`attachMediaStream`](https://www.npmjs.org/package/attachmediastream)
-package but with support for rtc.io plugins.
+package but with support for rtc.io plugins.  Also uses an error first
+async API to allow plugins time to initialize.
 
 
 [![NPM](https://nodei.co/npm/rtc-attach.png)](https://nodei.co/npm/rtc-attach/)
