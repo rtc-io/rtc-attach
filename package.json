@@ -1,6 +1,6 @@
 {
   "name": "rtc-attach",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Attach a media stream to an existing or new media element (basically attachMediaStream with support for rtc.io plugins)",
   "main": "index.js",
   "scripts": {
