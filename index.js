@@ -112,13 +112,18 @@ var attach = module.exports = function(stream, opts, callback) {
 };
 
 /**
-  ### `attach.local(stream, callback)`
+  ### `attach.local(stream, opts?, callback)`
 
   Attach a local stream with options appropriate for local streams:
 
   - `muted`: `true`
 
 **/
-attach.local = function(stream, callback) {
-  attach(stream, { muted: true }, callback);
+attach.local = function(stream, opts, callback) {
+  if (typeof opts == 'function') {
+    callback = opts;
+    opts = {};
+  }
+
+  attach(stream, extend({ muted: true }, opts), callback);
 };
