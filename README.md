@@ -88,7 +88,7 @@ this caters for this case in addition to standard usage in the browser.
   to render the media stream appropriate to the current platform in the
   event that WebRTC and/or media capture is supported via a browser plugin.
 
-### `attach.local(stream, callback)`
+### `attach.local(stream, opts?, callback)`
 
 Attach a local stream with options appropriate for local streams:
 
