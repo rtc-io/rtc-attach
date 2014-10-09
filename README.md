@@ -9,7 +9,7 @@ async API to allow plugins time to initialize.
 [![NPM](https://nodei.co/npm/rtc-attach.png)](https://nodei.co/npm/rtc-attach/)
 
 [![Build Status](https://img.shields.io/travis/rtc-io/rtc-attach.svg?branch=master)](https://travis-ci.org/rtc-io/rtc-attach) [![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/dominictarr/stability#unstable) 
-[![Gitter chat](https://badges.gitter.im/rtc-io.png)](https://gitter.im/rtc-io)
+[![Gitter chat](https://badges.gitter.im/rtc-io/discuss.png)](https://gitter.im/rtc-io/discuss)
 
 
 
