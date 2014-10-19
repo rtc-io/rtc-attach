@@ -128,5 +128,5 @@ attach.local = function(stream, opts, callback) {
     opts = {};
   }
 
-  attach(stream, extend({ muted: true }, opts), callback);
+  attach(stream, extend({ muted: true, mirror: true }, opts), callback);
 };
