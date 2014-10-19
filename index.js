@@ -84,6 +84,10 @@ var attach = module.exports = function(stream, opts, callback) {
       el.setAttribute('muted', '');
     }
 
+    if ((o || {}).mirror) {
+      el.style.transform = 'scale(-1, 1)';
+    }
+
     if (autoplay === undefined || autoplay) {
       el.play();
     }
