@@ -26,7 +26,7 @@
   "homepage": "https://github.com/rtc-io/rtc-attach",
   "dependencies": {
     "cog": "^1.0.0",
-    "rtc-core": "^3.1.0"
+    "rtc-core": "^4.0.0"
   },
   "devDependencies": {
     "kgo": "^1.2.0",
