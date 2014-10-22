@@ -58,7 +58,7 @@ var attach = module.exports = function(stream, opts, callback) {
     var el = (o || {}).el;
 
     // check the stream is valid
-    isValid = s && typeof s.getVideoTracks == 'function';
+    var isValid = s && typeof s.getVideoTracks == 'function';
 
     // determine the element type
     if (isValid && s.getVideoTracks().length > 0) {
