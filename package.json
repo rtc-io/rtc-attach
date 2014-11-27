@@ -29,6 +29,7 @@
     "rtc-core": "^4.0.0"
   },
   "devDependencies": {
+    "crel": "^2.1.5",
     "kgo": "^1.2.0",
     "rtc-capture": "^1.0.1",
     "rtc-plugin-nicta-ios": "^1.1.2",
