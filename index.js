@@ -55,7 +55,7 @@ var attach = module.exports = function(stream, opts, callback) {
   function attachToElement(s, o) {
     var autoplay = (o || {}).autoplay;
     var elType = 'audio';
-    var el = (o || {}).el;
+    var el = (o || {}).el || (o || {}).target;
 
     // check the stream is valid
     var isValid = s && typeof s.getVideoTracks == 'function';
