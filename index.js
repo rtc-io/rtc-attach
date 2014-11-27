@@ -65,6 +65,11 @@ var attach = module.exports = function(stream, opts, callback) {
       elType = 'video';
     }
 
+    // if we have been passed an "unplayable" target create a new element
+    if (el && typeof el.play != 'function') {
+      el = null;
+    }
+
     // prepare the element
     el = el || document.createElement(elType);
 
