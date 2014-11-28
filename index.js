@@ -52,6 +52,19 @@ var attach = module.exports = function(stream, opts, callback) {
     opts = {};
   }
 
+  function applyModifications(el, o) {
+    if ((o || {}).muted) {
+      el.muted = true;
+      el.setAttribute('muted', '');
+    }
+
+    if ((o || {}).mirror) {
+      el.style.transform = 'scale(-1, 1)';
+    }
+
+    return el;
+  }
+
   function attachToElement(s, o) {
     var autoplay = (o || {}).autoplay;
     var elType = 'audio';
@@ -84,20 +97,11 @@ var attach = module.exports = function(stream, opts, callback) {
       el.mozSrcObject = stream;
     }
 
-    if ((o || {}).muted) {
-      el.muted = true;
-      el.setAttribute('muted', '');
-    }
-
-    if ((o || {}).mirror) {
-      el.style.transform = 'scale(-1, 1)';
-    }
-
     if (autoplay === undefined || autoplay) {
       el.play();
     }
 
-    return el;
+    return applyModifications(el, o);
   }
 
   // see if we are using a plugin
@@ -112,7 +116,7 @@ var attach = module.exports = function(stream, opts, callback) {
         return callback(new Error('plugin must support the attach function'));
       }
 
-      callback(null, pinst.attach(stream, opts));
+      callback(null, applyModifications(pinst.attach(stream, opts), opts));
     });
   }
 
