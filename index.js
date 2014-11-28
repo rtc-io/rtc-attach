@@ -59,7 +59,7 @@ var attach = module.exports = function(stream, opts, callback) {
     }
 
     if ((o || {}).mirror) {
-      el.style.transform = 'scale(-1, 1)';
+      el.setAttribute('data-mirrored', true);
     }
 
     return el;
