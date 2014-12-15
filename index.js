@@ -98,6 +98,7 @@ var attach = module.exports = function(stream, opts, callback) {
     }
 
     if (autoplay === undefined || autoplay) {
+      el.setAttribute('autoplay', '');
       el.play();
     }
 
