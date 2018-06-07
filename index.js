@@ -44,7 +44,6 @@ var extend = require('cog/extend');
 
 **/
 var attach = module.exports = function(stream, opts, callback) {
-  var URL = typeof window != 'undefined' && window.URL;
   var pinst;
 
   if (typeof opts == 'function') {
@@ -87,15 +86,7 @@ var attach = module.exports = function(stream, opts, callback) {
     el = el || document.createElement(elType);
 
     // attach the stream
-    if (URL && URL.createObjectURL) {
-      el.src = URL.createObjectURL(stream);
-    }
-    else if (el.srcObject) {
-      el.srcObject = stream;
-    }
-    else if (el.mozSrcObject) {
-      el.mozSrcObject = stream;
-    }
+    el.srcObject = stream;
 
     if (autoplay === undefined || autoplay) {
       el.setAttribute('autoplay', '');
