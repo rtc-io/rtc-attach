@@ -44,7 +44,6 @@ var extend = require('cog/extend');
 
 **/
 var attach = module.exports = function(stream, opts, callback) {
-  var URL = typeof window != 'undefined' && window.URL;
   var pinst;
 
   if (typeof opts == 'function') {
